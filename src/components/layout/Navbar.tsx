@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSession, signOut } from "@/lib/auth-client";
 
+
 const publicLinks = [
   { name: "Home", href: "/" },
   { name: "All Books", href: "/books" },
