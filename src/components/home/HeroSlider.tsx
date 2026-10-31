@@ -109,26 +109,11 @@ export default function HeroSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* <style jsx global>{`
-        .booknook-slider .swiper-pagination {
-          bottom: 22px !important;
-          text-align: left;
-          padding-left: 32px;
-        }
-
-        .booknook-slider .swiper-pagination-bullet {
-          background: white;
-          opacity: 0.45;
-        }
-
-        .booknook-slider .swiper-pagination-bullet-active {
-          background: #34d399;
-          opacity: 1;
-          width: 25px;
-          border-radius: 10px;
-        }
-      `}</style> */}
     </section>
   );
 }
+
+
+
+
+
