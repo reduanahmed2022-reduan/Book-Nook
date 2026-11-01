@@ -65,6 +65,7 @@ export default function AddBookPage() {
 
       const response = await fetch("http://localhost:5000/books", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

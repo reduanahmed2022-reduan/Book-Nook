@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
- import { signIn } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,6 +36,21 @@ export default function LoginPage() {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    setGoogleLoading(true);
+
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch {
+      setError("Google login failed. Please try again.");
+      setGoogleLoading(false);
     }
   };
 
@@ -70,19 +86,39 @@ export default function LoginPage() {
           />
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && (
+          <p className="text-sm text-red-600">{error}</p>
+        )}
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || googleLoading}
           className="w-full rounded-lg bg-emerald-600 p-3 font-semibold text-white disabled:opacity-60"
         >
           {loading ? "Logging in..." : "Login"}
         </button>
 
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-gray-300" />
+          <span className="text-sm text-gray-500">OR</span>
+          <div className="h-px flex-1 bg-gray-300" />
+        </div>
+
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          disabled={googleLoading || loading}
+          className="w-full rounded-lg border border-gray-300 p-3 font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+        >
+          {googleLoading ? "Connecting..." : "Continue with Google"}
+        </button>
+
         <p className="text-center text-sm">
           Don't have an account?{" "}
-          <Link href="/register" className="font-semibold text-emerald-600">
+          <Link
+            href="/register"
+            className="font-semibold text-emerald-600"
+          >
             Register
           </Link>
         </p>

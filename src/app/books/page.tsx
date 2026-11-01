@@ -175,6 +175,7 @@ type Book = {
   category: string;
   image?: string;
   totalCopies: number;
+  availableCopies: number;
 };
 
 const API_URL =
@@ -297,7 +298,7 @@ export default function AllBooksPage() {
                     </p>
 
                     <p className="mt-1 text-xs text-slate-500">
-                      Available Copies: {book.totalCopies}
+                     Available Copies: {book.availableCopies ?? book.totalCopies}
                     </p>
 
                     <Link
