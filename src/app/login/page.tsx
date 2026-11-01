@@ -14,6 +14,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  // Email and Password Login
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -39,6 +40,7 @@ export default function LoginPage() {
     }
   };
 
+  // Google Login
   const handleGoogleLogin = async () => {
     setError("");
     setGoogleLoading(true);
@@ -108,9 +110,14 @@ export default function LoginPage() {
           type="button"
           onClick={handleGoogleLogin}
           disabled={googleLoading || loading}
-          className="w-full rounded-lg border border-gray-300 p-3 font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 p-3 font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
         >
-          {googleLoading ? "Connecting..." : "Continue with Google"}
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            className="h-5 w-5"
+          />
+          {googleLoading ? "Connecting to Google..." : "Continue with Google"}
         </button>
 
         <p className="text-center text-sm">

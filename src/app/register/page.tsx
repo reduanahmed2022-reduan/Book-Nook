@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-// import { signUp } from "@/lib/auth-client";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,6 +14,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,16 +36,30 @@ export default function RegisterPage() {
       router.push("/");
       router.refresh();
     } catch (err) {
-  console.error("Registration Error:", err);
+      console.error("Registration Error:", err);
 
-  setError(
-    err instanceof Error
-      ? err.message
-      : "Registration failed. Please try again."
-  );
-
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Registration failed. Please try again."
+      );
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleRegister = async () => {
+    setError("");
+    setGoogleLoading(true);
+
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch {
+      setError("Google registration failed. Please try again.");
+      setGoogleLoading(false);
     }
   };
 
@@ -55,7 +69,9 @@ export default function RegisterPage() {
         onSubmit={handleRegister}
         className="w-full max-w-md space-y-5 rounded-xl bg-white p-8 shadow"
       >
-        <h1 className="text-center text-3xl font-bold">Create Account</h1>
+        <h1 className="text-center text-3xl font-bold">
+          Create Account
+        </h1>
 
         <div>
           <label className="mb-2 block">Name</label>
@@ -94,19 +110,43 @@ export default function RegisterPage() {
           />
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && (
+          <p className="text-sm text-red-600">{error}</p>
+        )}
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || googleLoading}
           className="w-full rounded-lg bg-emerald-600 p-3 font-semibold text-white disabled:opacity-60"
         >
           {loading ? "Creating account..." : "Register"}
         </button>
 
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-gray-300" />
+          <span className="text-sm text-gray-500">OR</span>
+          <div className="h-px flex-1 bg-gray-300" />
+        </div>
+
+        <button
+  type="button"
+  onClick={handleGoogleRegister}
+  className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 p-3 font-semibold text-gray-700 hover:bg-gray-50"
+>
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    alt="Google"
+    className="h-5 w-5"
+  />
+  Continue with Google
+</button>
+
         <p className="text-center text-sm">
           Already have an account?{" "}
-          <Link href="/login" className="font-semibold text-emerald-600">
+          <Link
+            href="/login"
+            className="font-semibold text-emerald-600"
+          >
             Login
           </Link>
         </p>

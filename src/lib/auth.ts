@@ -22,6 +22,14 @@ export const auth = betterAuth({
     },
   },
 
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google"],
+    },
+  },
+
+
   secret: process.env.BETTER_AUTH_SECRET,
 
   baseURL: process.env.BETTER_AUTH_URL,
