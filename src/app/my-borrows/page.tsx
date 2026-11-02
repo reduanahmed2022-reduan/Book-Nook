@@ -71,12 +71,6 @@ export default function MyBorrowsPage() {
 
   // Return borrowed book
   const handleReturn = async (borrowId: string) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to return this book?"
-    );
-
-    if (!confirmed) return;
-
     try {
       setReturningId(borrowId);
 

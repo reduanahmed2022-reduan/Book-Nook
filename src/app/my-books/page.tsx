@@ -28,6 +28,7 @@ export default function MyBooksPage() {
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const [deleteBookId, setDeleteBookId] = useState<string | null>(null);
     const [editingBook, setEditingBook] = useState<Book | null>(null);
     const [saving, setSaving] = useState(false);
 
@@ -159,13 +160,8 @@ export default function MyBooksPage() {
     };
 
     // Delete book
+
     const handleDelete = async (bookId: string) => {
-        const confirmed = window.confirm(
-            "Are you sure you want to delete this book?"
-        );
-
-        if (!confirmed) return;
-
         try {
             const response = await fetch(
                 `${API_URL}/books/${bookId}`,
@@ -176,7 +172,7 @@ export default function MyBooksPage() {
             );
 
             const result = await response.json();
-        
+
             if (!response.ok) {
                 throw new Error(result.message || "Failed to delete book.");
             }
@@ -301,7 +297,7 @@ export default function MyBooksPage() {
 
                                         <button
                                             onClick={() =>
-                                                handleDelete(book._id)
+                                                setDeleteBookId(book._id)
                                             }
                                             className="flex-1 rounded-lg bg-red-600 px-4 py-2 font-semibold text-white transition hover:bg-red-700"
                                         >
@@ -315,127 +311,166 @@ export default function MyBooksPage() {
                 )}
             </div>
 
-            {/* Edit Book Modal */}
-            {editingBook && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
-                    <div className="my-4 w-full max-w-md max-h-[85vh] overflow-y-auto rounded-xl bg-white p-4 sm:p-5 shadow-xl">
-                        <div className="mb-5 flex items-center justify-between">
-                            <h2 className="text-2xl font-bold text-[#102a27]">
-                                Edit Book
-                            </h2>
+            {/* Delete Confirmation Modal */}
+            {deleteBookId && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+                    <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+                        <h2 className="text-xl font-bold text-slate-800">
+                            Delete Book?
+                        </h2>
+
+                        <p className="mt-3 text-slate-600">
+                            Are you sure you want to delete this book?
+                            This action cannot be undone.
+                        </p>
+
+                        <div className="mt-6 flex justify-end gap-3">
+                            <button
+                                onClick={() => setDeleteBookId(null)}
+                                className="rounded-lg border border-slate-300 px-5 py-2 font-semibold text-slate-700 transition hover:bg-slate-100"
+                            >
+                                Cancel
+                            </button>
 
                             <button
-                                onClick={() => setEditingBook(null)}
-                                className="text-2xl text-slate-500 hover:text-red-600"
-                                aria-label="Close edit form"
+                                onClick={async () => {
+                                    const bookId = deleteBookId;
+                                    setDeleteBookId(null);
+                                    await handleDelete(bookId);
+                                }}
+                                className="rounded-lg bg-red-600 px-5 py-2 font-semibold text-white transition hover:bg-red-700"
                             >
-                                ×
+                                Yes, Delete
                             </button>
                         </div>
-
-                        <form onSubmit={handleUpdate} className="space-y-4">
-                            <div>
-                                <label className="mb-1 block font-medium">
-                                    Book Title
-                                </label>
-                                <input
-                                    name="title"
-                                    value={formData.title}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="mb-1 block font-medium">
-                                    Author
-                                </label>
-                                <input
-                                    name="author"
-                                    value={formData.author}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="mb-1 block font-medium">
-                                    Category
-                                </label>
-                                <input
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="mb-1 block font-medium">
-                                    Image URL
-                                </label>
-                                <input
-                                    name="image"
-                                    type="url"
-                                    value={formData.image}
-                                    onChange={handleChange}
-                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="mb-1 block font-medium">
-                                    Total Copies
-                                </label>
-                                <input
-                                    name="totalCopies"
-                                    type="number"
-                                    min="1"
-                                    value={formData.totalCopies}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="mb-1 block font-medium">
-                                    Description
-                                </label>
-                                <textarea
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                    required
-                                    rows={4}
-                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                                />
-                            </div>
-
-                            <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
-                                <button
-                                    type="button"
-                                    onClick={() => setEditingBook(null)}
-                                    className="flex-1 rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700"
-                                >
-                                    Cancel
-                                </button>
-
-                                <button
-                                    type="submit"
-                                    disabled={saving}
-                                    className="flex-1 rounded-lg bg-[#102a27] px-5 py-3 font-semibold text-white disabled:opacity-60"
-                                >
-                                    {saving ? "Updating..." : "Update Book"}
-                                </button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             )}
-        </main>
+        
+    
+
+    {/* Edit Book Modal */ }
+    {
+        editingBook && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
+                <div className="my-4 w-full max-w-md max-h-[85vh] overflow-y-auto rounded-xl bg-white p-4 sm:p-5 shadow-xl">
+                    <div className="mb-5 flex items-center justify-between">
+                        <h2 className="text-2xl font-bold text-[#102a27]">
+                            Edit Book
+                        </h2>
+
+                        <button
+                            onClick={() => setEditingBook(null)}
+                            className="text-2xl text-slate-500 hover:text-red-600"
+                            aria-label="Close edit form"
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                    <form onSubmit={handleUpdate} className="space-y-4">
+                        <div>
+                            <label className="mb-1 block font-medium">
+                                Book Title
+                            </label>
+                            <input
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="mb-1 block font-medium">
+                                Author
+                            </label>
+                            <input
+                                name="author"
+                                value={formData.author}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="mb-1 block font-medium">
+                                Category
+                            </label>
+                            <input
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="mb-1 block font-medium">
+                                Image URL
+                            </label>
+                            <input
+                                name="image"
+                                type="url"
+                                value={formData.image}
+                                onChange={handleChange}
+                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="mb-1 block font-medium">
+                                Total Copies
+                            </label>
+                            <input
+                                name="totalCopies"
+                                type="number"
+                                min="1"
+                                value={formData.totalCopies}
+                                onChange={handleChange}
+                                required
+                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="mb-1 block font-medium">
+                                Description
+                            </label>
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                required
+                                rows={4}
+                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                            />
+                        </div>
+
+                        <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
+                            <button
+                                type="button"
+                                onClick={() => setEditingBook(null)}
+                                className="flex-1 rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                disabled={saving}
+                                className="flex-1 rounded-lg bg-[#102a27] px-5 py-3 font-semibold text-white disabled:opacity-60"
+                            >
+                                {saving ? "Updating..." : "Update Book"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )}
+    </main>
     );
 }
