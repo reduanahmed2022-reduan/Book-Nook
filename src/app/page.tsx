@@ -68,6 +68,10 @@ export default function Home() {
       {/* Hero Slider */}
       <HeroSlider />
 
+      {/* New Arrivals */}
+      <NewArrivals />
+
+
       {/* Welcome Section */}
       <section className="px-4 py-20 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
@@ -95,9 +99,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <NewArrivals />
-
+      
       {/* Explore Categories */}
       <section className="bg-white px-4 py-20 md:px-6">
         <div className="mx-auto max-w-7xl">
