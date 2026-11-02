@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -160,7 +161,6 @@ export default function MyBooksPage() {
     };
 
     // Delete book
-
     const handleDelete = async (bookId: string) => {
         try {
             const response = await fetch(
@@ -346,131 +346,128 @@ export default function MyBooksPage() {
                     </div>
                 </div>
             )}
-        
-    
 
-    {/* Edit Book Modal */ }
-    {
-        editingBook && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
-                <div className="my-4 w-full max-w-md max-h-[85vh] overflow-y-auto rounded-xl bg-white p-4 sm:p-5 shadow-xl">
-                    <div className="mb-5 flex items-center justify-between">
-                        <h2 className="text-2xl font-bold text-[#102a27]">
-                            Edit Book
-                        </h2>
+            {/* Edit Book Modal */}
+            {editingBook && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4">
+                    <div className="my-4 w-full max-w-md max-h-[85vh] overflow-y-auto rounded-xl bg-white p-4 sm:p-5 shadow-xl">
+                        <div className="mb-5 flex items-center justify-between">
+                            <h2 className="text-2xl font-bold text-[#102a27]">
+                                Edit Book
+                            </h2>
 
-                        <button
-                            onClick={() => setEditingBook(null)}
-                            className="text-2xl text-slate-500 hover:text-red-600"
-                            aria-label="Close edit form"
-                        >
-                            ×
-                        </button>
-                    </div>
-
-                    <form onSubmit={handleUpdate} className="space-y-4">
-                        <div>
-                            <label className="mb-1 block font-medium">
-                                Book Title
-                            </label>
-                            <input
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
-                                required
-                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-medium">
-                                Author
-                            </label>
-                            <input
-                                name="author"
-                                value={formData.author}
-                                onChange={handleChange}
-                                required
-                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-medium">
-                                Category
-                            </label>
-                            <input
-                                name="category"
-                                value={formData.category}
-                                onChange={handleChange}
-                                required
-                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-medium">
-                                Image URL
-                            </label>
-                            <input
-                                name="image"
-                                type="url"
-                                value={formData.image}
-                                onChange={handleChange}
-                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-medium">
-                                Total Copies
-                            </label>
-                            <input
-                                name="totalCopies"
-                                type="number"
-                                min="1"
-                                value={formData.totalCopies}
-                                onChange={handleChange}
-                                required
-                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="mb-1 block font-medium">
-                                Description
-                            </label>
-                            <textarea
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                required
-                                rows={4}
-                                className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
-                            />
-                        </div>
-
-                        <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
                             <button
-                                type="button"
                                 onClick={() => setEditingBook(null)}
-                                className="flex-1 rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700"
+                                className="text-2xl text-slate-500 hover:text-red-600"
+                                aria-label="Close edit form"
                             >
-                                Cancel
-                            </button>
-
-                            <button
-                                type="submit"
-                                disabled={saving}
-                                className="flex-1 rounded-lg bg-[#102a27] px-5 py-3 font-semibold text-white disabled:opacity-60"
-                            >
-                                {saving ? "Updating..." : "Update Book"}
+                                ×
                             </button>
                         </div>
-                    </form>
+
+                        <form onSubmit={handleUpdate} className="space-y-4">
+                            <div>
+                                <label className="mb-1 block font-medium">
+                                    Book Title
+                                </label>
+                                <input
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="mb-1 block font-medium">
+                                    Author
+                                </label>
+                                <input
+                                    name="author"
+                                    value={formData.author}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="mb-1 block font-medium">
+                                    Category
+                                </label>
+                                <input
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="mb-1 block font-medium">
+                                    Image URL
+                                </label>
+                                <input
+                                    name="image"
+                                    type="url"
+                                    value={formData.image}
+                                    onChange={handleChange}
+                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="mb-1 block font-medium">
+                                    Total Copies
+                                </label>
+                                <input
+                                    name="totalCopies"
+                                    type="number"
+                                    min="1"
+                                    value={formData.totalCopies}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="mb-1 block font-medium">
+                                    Description
+                                </label>
+                                <textarea
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                    required
+                                    rows={4}
+                                    className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600"
+                                />
+                            </div>
+
+                            <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingBook(null)}
+                                    className="flex-1 rounded-lg border border-slate-300 px-5 py-3 font-semibold text-slate-700"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    disabled={saving}
+                                    className="flex-1 rounded-lg bg-[#102a27] px-5 py-3 font-semibold text-white disabled:opacity-60"
+                                >
+                                    {saving ? "Updating..." : "Update Book"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        )}
-    </main>
+            )}
+        </main>
     );
 }
