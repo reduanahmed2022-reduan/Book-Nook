@@ -97,9 +97,8 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
       
-      {/* Explore Categories */}
+      {/* Explore Categories*/}
       <section className="bg-white px-4 py-20 md:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center">
@@ -143,7 +142,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> 
 
       {/* How Borrowing Works */}
       <section className="bg-[#102a27] px-4 py-20 text-white md:px-6">

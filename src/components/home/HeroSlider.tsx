@@ -113,8 +113,6 @@
 //   );
 // }
 
-
-
 "use client";
 
 import Link from "next/link";
@@ -169,7 +167,7 @@ export default function HeroSlider() {
         className="booknook-slider overflow-hidden rounded-2xl sm:rounded-3xl"
       >
         {slides.map((slide) => (
-          <SwiperSlide key={slide.number}>
+          <SwiperSlide key={slide.eyebrow}>
             <div
               className="relative flex min-h-[430px] items-center overflow-hidden bg-cover bg-center px-6 py-14 text-white sm:min-h-[480px] sm:px-10 md:min-h-[540px] md:px-16"
               style={{
@@ -205,11 +203,6 @@ export default function HeroSlider() {
                   </Link>
                 </div>
               </div>
-
-              {/* Slide Number */}
-              <span className="absolute bottom-5 right-6 text-5xl font-bold text-white/20 sm:bottom-8 sm:right-9 sm:text-7xl md:text-8xl">
-                {slide.number}
-              </span>
             </div>
           </SwiperSlide>
         ))}
@@ -217,8 +210,3 @@ export default function HeroSlider() {
     </section>
   );
 }
-
-
-
-
-
