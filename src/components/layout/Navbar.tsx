@@ -53,7 +53,7 @@ export default function Navbar() {
     : publicLinks;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-xl">
+     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-xl">
       <nav className="mx-auto flex h-[82px] max-w-7xl items-center justify-between px-4 md:px-6">
 
         {/* Logo */}
@@ -77,7 +77,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-1 xl:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {links.map((item) => (
             <Link
               key={item.href}
@@ -94,7 +94,7 @@ export default function Navbar() {
         </div>
 
         {/* Right Side */}
-        <div className="hidden items-center gap-3 xl:flex">
+        <div className="hidden items-center gap-3 md:flex">
           {isPending ? (
             <div className="h-10 w-24 animate-pulse rounded-full bg-slate-100" />
           ) : user ? (
@@ -175,14 +175,22 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
+         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-2xl text-[#102a27] transition hover:bg-emerald-50 xl:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-2xl text-[#102a27] transition hover:bg-emerald-50 md:hidden"
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
           {menuOpen ? "✕" : "☰"}
-        </button>
+        </button> 
+
+        {/* <button
+      onClick={() => setMenuOpen(!menuOpen)}
+      className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-2xl text-[#102a27] transition hover:bg-emerald-50 md:hidden"
+      aria-label="Toggle menu"
+    >
+      {menuOpen ? "✕" : "☰"}
+    </button> */}
       </nav>
 
       {/* Mobile Navigation */}
