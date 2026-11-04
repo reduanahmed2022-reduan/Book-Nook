@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 BookNook – A Small Online Library
 
-## Getting Started
+**Live Website:** https://book-nook-reduan.vercel.app/
 
-First, run the development server:
+## 📖 About the Project
 
-```bash
+BookNook is a small online library where users can explore books, add new books, borrow books, and return them. It provides a simple and user-friendly platform for managing books and borrowing activities.
+
+**"Add a book, borrow a book, return a book."**
+
+## ✨ Key Features
+
+- **User Authentication:** Secure registration and login using Better Auth with email/password and Google authentication.
+- **Browse Books:** Explore all available books with their images, titles, authors, and categories.
+- **New Arrivals:** Discover the latest six books added to the library.
+- **Add Books:** Logged-in users can add new books with images, descriptions, categories, and total copies.
+- **Book Details:** View detailed information about each book.
+- **Borrow Books:** Borrow available books through a confirmation process.
+- **My Books:** Manage your own books with edit and delete functionality.
+- **My Borrows:** View borrowed books and their borrowing and return dates.
+- **Return Books:** Return borrowed books and update available copies.
+- **Responsive Design:** Enjoy a consistent experience on desktop, tablet, and mobile devices.
+- **Custom 404 Page:** A custom Not Found page with a Back to Home button.
+- **Toast Notifications:** Get success and error messages through toast notifications.
+
+## 🛠️ Technologies Used
+
+### Frontend
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- Swiper.js
+- Lucide React
+- React Hot Toast
+
+### Authentication & Database
+- Better Auth
+- MongoDB Adapter
+- MongoDB
+
+### Backend
+- Express.js
+- TypeScript
+- MongoDB
+- JWT Authentication
+
+## 🚀 Run Locally
+
+### 1. Clone the Repository
+
+
+git clone https://github.com/reduanahmed2022-reduan/Book-Nook.git
+
+
+### 2. Navigate to the Project Folder
+
+
+cd Book-Nook/book-nook-client
+
+
+### 3. Install Dependencies
+
+
+npm install
+
+
+### 4. Configure Environment Variables
+
+Create a `.env.local` file in the frontend project root and add the required environment variables:
+
+    env
+MONGODB_URI=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+BACKEND_URL=
+
+
+Add your own credentials and configuration values. Never share or commit secret values.
+
+### 5. Start the Development Server
+
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 6. Build for Production
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🌐 Deployment
 
-## Deploy on Vercel
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👨‍💻 Developer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Reduan Ahmed**
+
+- GitHub: [reduanahmed2022-reduan](https://github.com/reduanahmed2022-reduan)
+- Project Repository: [Book-Nook](https://github.com/reduanahmed2022-reduan/Book-Nook)
+- Live Website: https://book-nook-reduan.vercel.app/
+
+---
+
+© 2026 BookNook. All Rights Reserved.
