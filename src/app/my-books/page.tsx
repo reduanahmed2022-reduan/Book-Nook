@@ -19,9 +19,6 @@ type Book = {
     userEmail: string;
 };
 
-const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-
 export default function MyBooksPage() {
     const router = useRouter();
     const { data: session, isPending } = useSession();
@@ -57,7 +54,7 @@ export default function MyBooksPage() {
             try {
                 setLoading(true);
 
-                const response = await fetch(`${API_URL}/books`);
+                const response = await fetch("/api/backend/books");
 
                 if (!response.ok) {
                     throw new Error("Failed to load books.");
@@ -122,7 +119,7 @@ export default function MyBooksPage() {
             setSaving(true);
 
             const response = await fetch(
-                `${API_URL}/books/${editingBook._id}`,
+                `/api/backend/books/${editingBook._id}`,
                 {
                     method: "PATCH",
                     credentials: "include",
@@ -164,7 +161,7 @@ export default function MyBooksPage() {
     const handleDelete = async (bookId: string) => {
         try {
             const response = await fetch(
-                `${API_URL}/books/${bookId}`,
+                `/api/backend/books/${bookId}`,
                 {
                     method: "DELETE",
                     credentials: "include",

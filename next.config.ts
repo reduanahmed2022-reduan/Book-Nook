@@ -1,8 +1,9 @@
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+
   turbopack: {
     rules: {
       "*.css": {
@@ -10,6 +11,15 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: "/api/backend/:path*",
+        destination: `${process.env.BACKEND_URL || "http://localhost:5000"}/:path*`,
+      },
+    ];
   },
 };
 

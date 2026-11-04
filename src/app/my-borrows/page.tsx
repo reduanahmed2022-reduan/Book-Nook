@@ -16,8 +16,6 @@ type Borrow = {
   returnDate: string;
 };
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export default function MyBorrowsPage() {
   const router = useRouter();
@@ -44,7 +42,7 @@ export default function MyBorrowsPage() {
         setLoading(true);
         setError("");
 
-        const response = await fetch(`${API_URL}/borrows`, {
+        const response = await fetch("/api/backend/borrows", {
           credentials: "include",
         });
 
@@ -75,7 +73,7 @@ export default function MyBorrowsPage() {
       setReturningId(borrowId);
 
       const response = await fetch(
-        `${API_URL}/borrows/${borrowId}`,
+        `/api/backend/borrows/${borrowId}`,
         {
           method: "DELETE",
           credentials: "include",

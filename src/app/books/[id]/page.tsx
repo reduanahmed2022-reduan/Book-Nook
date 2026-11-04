@@ -21,8 +21,6 @@ type Book = {
     userEmail: string;
 };
 
-const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export default function BookDetailsPage() {
     const params = useParams();
@@ -46,8 +44,7 @@ export default function BookDetailsPage() {
             try {
                 setLoading(true);
 
-                const response = await fetch(`${API_URL}/books/${id}`);
-
+                const response = await fetch(`/api/backend/books/${id}`);
                 if (!response.ok) {
                     throw new Error("Book not found");
                 }
@@ -103,7 +100,7 @@ export default function BookDetailsPage() {
         try {
             setBorrowing(true);
 
-            const response = await fetch(`${API_URL}/borrows`, {
+            const response = await fetch("/api/backend/borrows", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -129,7 +126,7 @@ export default function BookDetailsPage() {
             setReturnDate("");
 
             // Reload updated book availability
-            const updatedResponse = await fetch(`${API_URL}/books/${id}`);
+           const updatedResponse = await fetch(`/api/backend/books/${id}`);
 
             if (updatedResponse.ok) {
                 const updatedBook = await updatedResponse.json();

@@ -14,9 +14,6 @@ type Book = {
   availableCopies?: number;
 };
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-
 export default function NewArrivals() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +22,7 @@ export default function NewArrivals() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch(`${API_URL}/books?limit=8`);
+        const response = await fetch("/api/backend/books?limit=8");
 
         if (!response.ok) {
           throw new Error("Could not load books");
